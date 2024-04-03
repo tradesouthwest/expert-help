@@ -232,6 +232,22 @@ class Admin_Code {
                 'show_link'   => true
             )
         );
+        add_settings_field(
+            'instructions_uri', 					
+            __( 'Link to instructions', $this->domain ),  					
+            [ $this, 'expert_help_textinput' ],
+            'general_options',
+            'general_options',
+            array( 
+                'label_for'   => 'instructions_uri', 
+                'name'        => 'instructions_uri', 
+                'value'       => $this->options_get(
+                                    'general_options',
+                                    'instructions_uri'),
+                'option_name' => 'general_options',
+                'show_link'   => true
+            )
+        );
 	    register_setting( 'general_options',
 		    'general_options'
 	    );
@@ -244,21 +260,27 @@ class Admin_Code {
          */  
         add_settings_section(
             'extra_options',
-            'Extra',          
-            [ $this, 'general_options_callback_b' ],
+            '',          
+            [ $this, 'extra_options_callback' ],
             'extra_options' 
         );
         /* field
          * $id, $label, $callback, $page, $section, $args
          */ 
         add_settings_field(
-            'Plugins', 					
-            'Plugins list',  					
-            [ $this, 'extra_options_listplugins' ],
+            'special_extra', 					
+            __( 'Special field', $this->domain ),  					
+            [ $this, 'expert_help_textinput' ],
             'extra_options',
             'extra_options',
             array( 
-                'Setting to display.'
+                'label_for'   => 'special_extra', 
+                'name'        => 'special_extra', 
+                'value'       => $this->options_get(
+                                    'extra_options',
+                                    'special_extra'),
+                'option_name' => 'extra_options',
+                'show_link'   => false
             )
         );
 	    register_setting( 'extra_options',
@@ -291,6 +313,16 @@ class Admin_Code {
     public function general_options_callback_a() {
         echo '<p>' . esc_html__( 'General Options and Settings', $this->domain ) . '</p>';
     } 
+    // extra options description
+    public function extra_options_callback() {
+        echo '<p>' . esc_html__( 'Content for this page heading', $this->domain ) . '</p>';
+    } 
+    // extra options description
+    public function more_options_callback() {
+        echo '<p>' . esc_html__( 'Content for this page heading', $this->domain ) . '</p>';
+    } 
+
+    /* ////////// FIELDs ////////// */
      /**
      * Path to input field render html.
      * Can be use as text, uri, number.
@@ -313,7 +345,7 @@ class Admin_Code {
                 $args['value'] 
             );
             printf(
-                '&nbsp;<a href="%1$s" title="%2$s" target="%3$s">%1$s</a>',
+                '&nbsp;<a href="%1$s" title="%2$s" target="%3$s">%1$s <span title="opens in new tab">&#x2197;</span></a>',
                 $args['value'],
                 $args['name'],
                 esc_attr( '_blank' )
@@ -321,19 +353,24 @@ class Admin_Code {
             );
         }
     }
-    
-    public function general_options_callback_b() {
-        echo '<p>Content you wish to display.</p>';
-    }
-
-    public function extra_options_listplugins() {
-        echo '';
-    } 
 
     /**
-     * validate and sanitize
+     * Display the date this plugin was activated, last.
+     * 
+     * @since 1.0.0
+     * @param string $da Option added in \Activate
      */
+    public function date_plugin_activated_field() {
+        $da = ( empty ( get_option( 'expert_help_date_plugin_activated' ) ) ) 
+                ? '' : get_option( 'expert_help_date_plugin_activated' );
+        echo esc_attr( $da );
+    }
 
+    /**
+     * validate and sanitize text input
+     * 
+     * @since 1.0.0
+     */
     public function validate_input_general( $input ) {
         // The array in which the new, sanitized input will go
         $new_input = array();
@@ -348,6 +385,4 @@ class Admin_Code {
         return $new_input;
         
     }
-
-    
 }

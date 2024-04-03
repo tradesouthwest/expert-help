@@ -55,4 +55,47 @@
 		echo "<label><input ".$checked." value='$item' name='plugin_options[option_set1]' type='radio' /> $item</label><br />";
 	}
     }
+
+    // Step 1: Create the Upload Form
+function display_upload_form() {
+    ?>
+    <form method="post" enctype="multipart/form-data">
+        <label for="file">Upload Text File:</label>
+        <input type="file" name="file" id="file">
+        <input type="submit" name="submit" value="Upload File">
+    </form>
+    <?php
+}
+// Step 2: Handle File Upload
+function handle_file_upload() {
+    if (isset($_POST['submit'])) {
+        $uploaded_file = $_FILES['file'];
+        
+        // Check if file is uploaded successfully
+        if ($uploaded_file['error'] === UPLOAD_ERR_OK) {
+            $upload_dir = wp_upload_dir(); // Get uploads directory
+            $file_path = $upload_dir['path'] . '/' . $uploaded_file['name'];
+            
+            // Move the uploaded file to the uploads folder
+            move_uploaded_file($uploaded_file['tmp_name'], $file_path);
+            
+            // Save the file path in the database for future reference
+            update_option('uploaded_file_path', $file_path);
+        }
+    }
+}
+// Step 3: Display the Uploaded File
+function display_uploaded_file() {
+    $file_path = get_option('uploaded_file_path');
+    
+    if ($file_path) {
+        $file_content = file_get_contents($file_path);
+        echo '<pre>' . $file_content . '</pre>';
+    }
+}
+// Hook functions to appropriate actions
+add_action('admin_menu', 'display_upload_form');
+add_action('admin_init', 'handle_file_upload');
+add_action('admin_menu', 'display_uploaded_file');
+
 */
