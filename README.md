@@ -1,5 +1,11 @@
 # expert-help
 
+A basic starter plugin using namespaces. Can help to guide client through the Codeable Experience.
+
+## Please download the latest Release! Do not use this main branch as it is older than the Releases.
+
+## Screenshots
+
 ![Screenshot_eh1](https://github.com/tradesouthwest/expert-help/assets/2350010/36a30ee8-bc18-4d04-b44a-bf3624cf0ee5)
 
 ![Screenshot_eh2](https://github.com/tradesouthwest/expert-help/assets/2350010/179b3a0c-e380-4c27-8ed7-6917ca6190da)
