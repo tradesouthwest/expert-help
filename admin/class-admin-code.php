@@ -67,6 +67,10 @@ class Admin_Code {
 	 */
 	private $domain;
 
+    /**
+	 * Options getter of the plugin
+	 * @var string
+	 */
     private $options_get;
 
     /**
@@ -87,7 +91,6 @@ class Admin_Code {
 
         add_action( 'admin_menu', [ $this, 'add_menu' ] );   
         add_action( 'admin_init', [ $this, 'initialize_options' ] );
-        //add_action( 'expert_help_basic_info', [ $this, 'basic_debug_info' ]);
     }
 	
     /**
@@ -102,10 +105,9 @@ class Admin_Code {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
 		wp_enqueue_style( $this->plugin_name . '-admin-style', plugin_dir_url( __FILE__ ) . 'css/expert-help-admin.css', array(), $this->version, 'all' );
-
 	}
+
     /**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
@@ -113,15 +115,15 @@ class Admin_Code {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * The Expert_Help_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name . '-admin-script', plugin_dir_url( __FILE__ ) . 'css/expert-help-admin.js', array(), $this->version, 'all' );
     }
 
+    /**
+     * Called from loader \Core
+     * 
+     * @since 1.0.0
+     * @return HTML
+     */
     public function basic_debug_info( ) {
         global $wp_version, $wpdb;
         $html = true;
@@ -163,7 +165,6 @@ class Admin_Code {
             'dashicons-plus',
             99
         );
-
     }
 
     /**
@@ -180,6 +181,7 @@ class Admin_Code {
 
             return esc_attr( $options_get );
     }
+
     /**
      * Initializes the Sections, Field, and Settings
      *
@@ -251,13 +253,8 @@ class Admin_Code {
 	    register_setting( 'general_options',
 		    'general_options'
 	    );
-
-        /* 
-         * second tab 
-        */
-        /* section
-         * $id, $title, $callback, $page
-         */  
+        
+        /* ///// second tab ///// */
         add_settings_section(
             'extra_options',
             '',          
@@ -283,6 +280,8 @@ class Admin_Code {
                 'show_link'   => false
             )
         );
+        
+        /* ///// third tab ///// */ 
 	    register_setting( 'extra_options',
 		    'extra_options'
 	    );
@@ -303,10 +302,7 @@ class Admin_Code {
 		);
     }
 
-    /**
-     * Section Callbacks
-     */
-
+    /* ////////// Section Callbacks ////////// */
     /**
      * description for the General Options page.
      */
@@ -315,11 +311,11 @@ class Admin_Code {
     } 
     // extra options description
     public function extra_options_callback() {
-        echo '<p>' . esc_html__( 'Content for this page heading', $this->domain ) . '</p>';
+        echo '<p>' . esc_html__( 'Content for Extra page heading', $this->domain ) . '</p>';
     } 
     // extra options description
     public function more_options_callback() {
-        echo '<p>' . esc_html__( 'Content for this page heading', $this->domain ) . '</p>';
+        echo '<p>' . esc_html__( 'Content for More page heading', $this->domain ) . '</p>';
     } 
 
     /* ////////// FIELDs ////////// */
@@ -354,6 +350,7 @@ class Admin_Code {
         }
     }
 
+    /* ////////// Admin specific methods ////////// */
     /**
      * Display the date this plugin was activated, last.
      * 
