@@ -64,56 +64,10 @@ if ( ! current_user_can('manage_options')) {
             else { 
 				/* There are no settings sections or options registered with expert_help
 				 * base release. Please envoke and register options in \Admin_Code as more_options
-				 */ 
-			?>
-
-				<p><?php esc_html_e( 'This section edited in file. Not settings options.', $this->domain ); ?></p>
-
-				<table class="form-table" role="presentation">
-					<tbody>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Info', $this->domain ); ?></th>
-						<td>
-					<?php
-					global $wpdb;
-
-					$postmeta_count = $wpdb->get_var("SELECT COUNT(*) 
-										FROM $wpdb->postmeta");
-					$options_count = $wpdb->get_var("SELECT COUNT(*) 
-										FROM $wpdb->options");
-
-					/* Show number of entries in table.
-					 * Leaving i18n English 
-					 */
-					echo 'Number of entries in wp_postmeta table: ' 
-						. esc_html( $postmeta_count ) . "<br>";
-					echo 'Number of entries in wp_options table: ' 
-						. esc_html( $options_count );
-					
-					//clean query
-					$postmeta_count = $options_count = null; 		
-					?>
-						<p><?php 
-						do_action( 'expert_help_basic_info' );
-						?></p>
-						</td>
-					</tr>
-
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Date plugin last activated', $this->domain ); ?></th>
-						<td>
-						<?php 
-						$da = ( empty ( get_option( 'expert_help_date_plugin_activated' ) ) ) 
-								? '' : get_option( 'expert_help_date_plugin_activated' );
-						
-						echo '<em>' . esc_attr( $da ) . '</em>';
-						?>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			
-            <?php 
+				 */
+				include( sprintf( "%s/views/larrys-tools.php", 
+				dirname( __FILE__ ) ) 
+			);  
 			} ?>
 			<?php
         		submit_button();
@@ -158,4 +112,3 @@ if ( ! current_user_can('manage_options')) {
 		});
 		</script>
 	<?php 
-
