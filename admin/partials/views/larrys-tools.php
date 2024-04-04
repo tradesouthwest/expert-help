@@ -38,7 +38,11 @@
             $da = ( empty ( get_option( 'expert_help_date_plugin_activated' ) ) ) 
                   ? '' : get_option( 'expert_help_date_plugin_activated' );
             
-            echo '<em>' . esc_attr( $da ) . '</em>';
+            echo '<em>' . esc_attr( $da ) . '</em><br>';
+            ?>
+            <?php
+            echo '<hr>'; 
+            include plugin_dir_path( __FILE__ ) . 'docs/index.html'; 
             ?>
             </td>
         </tr>
