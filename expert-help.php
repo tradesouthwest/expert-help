@@ -3,20 +3,17 @@
 /**
  * The plugin bootstrap file
  *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
+ * @dev-git-sync-uri  https://tswdev.com/demo/
  *
  * @link              https://github.com/tradesouthwest/wordpress-client/tree/master/Expert-Tools
- * @since             1.0.0
+ * @since             1.0.1
  * @package           Expert_Help
  *
  * @wordpress-plugin
  * Plugin Name:       Expert Help
  * Plugin URI:        https://github.com/tradesouthwest/wordpress-client/tree/master/Expert-Tools
  * Description:       Plugin to hold client and Codeable Expert communications with.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            TRADESOUTHWEST
  * Author URI:        https://github.com/tradesouthwest
  * License:           GPL-2.0+
@@ -36,7 +33,6 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'EXPERT_HELP_VERSION', '1.0.0' );
-define( 'EXPERT_HELP_PATH', '' );
 
 /**
  * The code that runs during plugin activation.
