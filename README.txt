@@ -3,8 +3,8 @@ Contributors: tradesouthwest
 Donate link: https://github.com/tradesouthwest/wordpress-client/new/master/Expert-Tools
 Tags: comments, help, tools, maintenance
 Requires at least: 4.9
-Tested up to: 6.2
-Stable tag: trunk
+Tested up to: 6.5
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -21,8 +21,7 @@ This will make it easy to rename files and methods etc.
 == Installation ==
 
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
 
@@ -31,11 +30,10 @@ This will make it easy to rename files and methods etc.
 == Changelog ==
 
 = 1.0 =
-* A change since the previous version.
-* Another change.
+* original
+= 1.0.1 =
+* Added tools
 
 == Arbitrary section ==
 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
+Arbitrary sections will be shown below the built-in sections outlined above.
