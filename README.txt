@@ -4,7 +4,7 @@ Donate link: https://github.com/tradesouthwest/wordpress-client/new/master/Exper
 Tags: comments, help, tools, maintenance
 Requires at least: 4.9
 Tested up to: 6.5
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -15,7 +15,7 @@ Get help with your theme and plugin work done by Codeable Expert.
 Plugin will help you with your theme and plugin work done by Codeable Expert.
 This is also a good starter plugin for creatingg namespace based plugins.
 It is suggested that you add `yourname-` in front of the prefix to avoid prefix crashing.
-ex.: replace "expert-help" & "expert_plugin" with "yourname-expert-help" & "yourname_expert_help" 
+ex.: replace "expert-help" & "expert_help" with "yourname-expert-help" & "yourname_expert_help" 
 This will make it easy to rename files and methods etc.
 
 == Installation ==
@@ -33,6 +33,9 @@ This will make it easy to rename files and methods etc.
 * original
 = 1.0.1 =
 * Added tools
+= 1.0.2 =
+* remvd add_option
+* move admininit to loader core
 
 == Arbitrary section ==
 

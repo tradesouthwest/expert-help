@@ -43,25 +43,6 @@ class Admin_Code {
 	private $version;
 
     /**
-	 * The settings fields.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      array    $settings    The array of settings fields.
-	 */
-	//private $settings;
-
-    /**
-	 * The settings option name.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      array    $options The option name.
-	 */
-	private $options_slug;
-
-
-    /**
 	 * Name of the plugin
 	 * @var string
 	 */
@@ -86,11 +67,8 @@ class Admin_Code {
 		$this->plugin_name  = $plugin_name;
 		$this->version      = $version;
         $this->domain       = 'expert-help';
-        $this->options_slug = 'expert_help';
         $this->options_get  = $this->options_get;
 
-        add_action( 'admin_menu', [ $this, 'add_menu' ] );   
-        add_action( 'admin_init', [ $this, 'initialize_options' ] );
     }
 	
     /**
@@ -171,10 +149,6 @@ class Admin_Code {
      * get_option('general_options')['workroom_uri'],
      */
     public function options_get( $opt, $fld ){
-
-        if( false == get_option( 'expert_help' ) ) {
-            add_option( 'expert_help' );
-        }
 
         $options_get = ( empty( get_option( $opt )[ $fld ] ) ) 
                       ? '' : get_option( $opt )[ $fld ];

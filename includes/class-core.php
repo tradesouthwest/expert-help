@@ -174,6 +174,12 @@ class Core {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 
 			'enqueue_scripts' 
 		);
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 
+			'add_menu' 
+		);   
+		$this->loader->add_action( 'admin_init', $plugin_admin, 
+			'initialize_options' 
+		);
 		$this->loader->add_action( 'expert_help_basic_info', $plugin_admin,
 		    'basic_debug_info' 
 		);
