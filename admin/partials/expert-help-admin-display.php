@@ -38,7 +38,8 @@ if ( ! current_user_can('manage_options')) {
 				} else {
 					$active_tab = 'general_options';
 				} // end if/else
-
+				$eh_public_css = 
+				admin_url( 'plugin-editor.php?file=expert-help%2Fpublic%2Fcss%2Fexpert-help-public.css&plugin=expert-help%2Fexpert-help.php' );
 			?>
 
 			<h2 class="nav-tab-wrapper">
@@ -56,6 +57,8 @@ if ( ! current_user_can('manage_options')) {
             if( $active_tab == 'general_options' ) {
                 settings_fields( 'general_options' );
                 do_settings_sections( 'general_options' );
+				echo '<hr>' . '<a href="' . esc_url( $eh_public_css ) . '" title="css editor">' . esc_html__( 'Public CSS', $this->domain ) . '<sup title="?"><small>[1]</small></sup></a>
+					 <p><small>1. ^ Public CSS may be saved in this plugin opposed to Customizer.</small></p>';
             }
             elseif( $active_tab == 'extra_options' ) {
 				settings_fields( 'extra_options' );
