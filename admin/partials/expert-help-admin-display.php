@@ -28,22 +28,13 @@ if ( ! current_user_can('manage_options')) {
 			<?php settings_errors(); ?>
 
 			<?php
-	global $active_tab;
-				if( isset( $_GET[ 'tab' ] ) ) {
-					$active_tab = $_GET[ 'tab' ];
-				} else if( $active_tab == 'extra_options' ) {
-					$acitve_tab = 'extra_options';
-				} else if( $active_tab == 'more_options' ) {
-					$active_tab == 'more_options';
-				} else {
-					$active_tab = 'general_options';
-				} // end if/else
-				$eh_public_css = 
-				admin_url( 'plugin-editor.php?file=expert-help%2Fpublic%2Fcss%2Fexpert-help-public.css&plugin=expert-help%2Fexpert-help.php' );
+			$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] 
+						: 'general_options'; 
 			?>
 
 			<h2 class="nav-tab-wrapper">
-				<a href="?page=expert-help&tab=general_options" class="nav-tab <?php echo $active_tab == 'general_options' ? 'nav-tab-active' : ''; ?> ">
+				<a href="?page=expert-help&tab=general_options" 
+				class="nav-tab <?php echo $active_tab == 'general_options' ? 'nav-tab-active' : ''; ?> ">
                 <?php esc_html_e( 'General', $this->domain ); ?></a>
 				<a href="?page=expert-help&tab=extra_options" class="nav-tab <?php echo $active_tab == 'extra_options' ? 'nav-tab-active' : ''; ?>">
                 <?php esc_html_e( 'Extra', $this->domain ); ?></a>
@@ -57,8 +48,6 @@ if ( ! current_user_can('manage_options')) {
             if( $active_tab == 'general_options' ) {
                 settings_fields( 'general_options' );
                 do_settings_sections( 'general_options' );
-				echo '<hr>' . '<a href="' . esc_url( $eh_public_css ) . '" title="css editor">' . esc_html__( 'Public CSS', $this->domain ) . '<sup title="?"><small>[1]</small></sup></a>
-					 <p><small>1. ^ Public CSS may be saved in this plugin opposed to Customizer.</small></p>';
             }
             elseif( $active_tab == 'extra_options' ) {
 				settings_fields( 'extra_options' );
