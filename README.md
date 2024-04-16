@@ -11,3 +11,6 @@ A basic starter plugin using namespaces. Can help to guide client through the Co
 ![Screenshot_eh2](https://github.com/tradesouthwest/expert-help/assets/2350010/179b3a0c-e380-4c27-8ed7-6917ca6190da)
 
 ![Screenshot_eh3](https://github.com/tradesouthwest/expert-help/assets/2350010/46ab6cc9-c8a7-493a-bf8f-fe9d00ef9567)
+
+## Notes
+working platform https://tswdev.com/demo/
