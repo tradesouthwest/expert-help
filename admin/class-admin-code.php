@@ -105,34 +105,6 @@ class Admin_Code {
     }
 
     /**
-     * Put scripts in the head.
-     * @since 1.0.0
-     * @param wp_unslash   Remove slashes from a string or array of strings.
-     */
-    public function admin_head_scripts() {
-
-        $output     = '';
-        $html_toget = '';
-        $default    = '';
-        $html_toget = ( empty( $this->options_get( 'extra_options', 'admin_style' ) ) )
-        ? $default : $this->options_get( 'extra_options', 'admin_style' );
-
-        $opt_styles = ( null !== $this->options_get( 'extra_options', 'radio_extra' ) )
-                    ? 0 : $this->options_get( 'extra_options', 'radio_extra' );
-        
-        if( $html_toget ) {
-            $output .= '<style type="text/css" id="expert-help-admin-head">';
-        if( $opt_styles == "1" ) : 
-            $output .= wp_unslash( $html_toget );
-        endif;
-            $output .= '</style> ';
-        } 
-        
-        print( $output );
-
-    }
-
-    /**
      * Called from loader \Core
      * 
      * @since 1.0.0
@@ -287,23 +259,21 @@ class Admin_Code {
          */ 
         add_settings_field(
             'special_extra', 					
-            __( 'Special field', $this->domain ),  					
+            '<span class="eh-caution">'. esc_html__( 'Special field', $this->domain ) . '</span>',
             [ $this, 'expert_help_textinput' ],
             'extra_options',
             'extra_options',
             array( 
                 'label_for'   => 'special_extra', 
                 'name'        => 'special_extra', 
-                'value'       => $this->options_get(
-                                    'extra_options',
-                                    'special_extra'),
+                'value'       => $this->options_get( 'extra_options', 'special_extra'),
                 'option_name' => 'extra_options',
                 'show_link'   => false
             )
         );
         add_settings_field(
             'radio_extra', 					
-            __( 'Use Admin Style', $this->domain ),  					
+            esc_html__( 'Use Checkbox', $this->domain ),  					
             [ $this, 'expert_help_radio' ],
             'extra_options',
             'extra_options',
@@ -312,22 +282,9 @@ class Admin_Code {
                 'name'        => 'radio_extra', 
                 'value'       => $this->checkbox_get( 'extra_options', 'radio_extra'),
                 'option_name' => 'extra_options',
-                'description' => 'use to remove nags etc.',
+                'description' => esc_html__( 'unassigned', $this->domain ),
                 'checked'     => ( 0 != $this->checkbox_get( 'extra_options', 'radio_extra') )
                                     ? 'checked' : ''
-            )
-        );
-        add_settings_field(
-            'admin_style',
-            __( 'Valid CSS to Admin', $this->domain ),
-            [ $this, 'expert_help_editor' ],
-            'extra_options',
-            'extra_options',
-            array( 
-                'label_for'   => 'admin_style',
-                'name'        => 'admin_style',
-                'value'       => $this->options_get( 'extra_options', 'admin_style'),
-                'option_name' => 'extra_options'
             )
         );
 
