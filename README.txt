@@ -28,14 +28,15 @@ This will make it easy to rename files and methods etc.
 == Screenshots ==
 
 == Changelog ==
-
-= 1.0 =
-* original
-= 1.0.1 =
-* Added tools
 = 1.0.2 =
 * remvd add_option
 * move admininit to loader core
+= 1.0.1 =
+* Added tools
+= 1.0 =
+* original
+
+
 
 == Arbitrary section ==
 

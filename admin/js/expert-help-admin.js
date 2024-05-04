@@ -1,17 +1,45 @@
-(function( $ ) {
-	'use strict';
+'use strict';
+ (function($){
+    $(function(){
+        if( $('#code_editor_page_head').length ) {
+            var editorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+            editorSettings.codemirror = _.extend(
+                {},
+                editorSettings.codemirror,
+                {
+                    indentUnit: 2,
+                    tabSize: 2
+                }
+            );
+            var editor = wp.codeEditor.initialize( $('#code_editor_page_head'), editorSettings );
+        }
 
-	function save_main_options_ajax() {
-		$('.main-options-form').submit( function () {
-			 var b =  $(this).serialize();
-			 $.post( 'options.php', b ).error( 
-				 function() {
-					 alert('error');
-				 }).success( function() {
-					 alert('success');   
-				 });
-				 return false;    
-			 });
-		 }
-// usage: save_main_options_ajax();
-})( jQuery );
+        if( $('#code_editor_page_js').length ) {
+            var editorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+            editorSettings.codemirror = _.extend(
+                {},
+                editorSettings.codemirror,
+                {
+                    indentUnit: 2,
+                    tabSize: 2,
+                    mode: 'javascript',
+                }
+            );
+            var editor = wp.codeEditor.initialize( $('#code_editor_page_js'), editorSettings );
+        }
+
+        if( $('#grandchile_print_styles').length ) {
+            var editorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+            editorSettings.codemirror = _.extend(
+                {},
+                editorSettings.codemirror,
+                {
+                    indentUnit: 2,
+                    tabSize: 2,
+                    mode: 'css',
+                }
+            );
+            var editor = wp.codeEditor.initialize( $('#grandchile_print_styles'), editorSettings );
+        }
+    });
+})(jQuery);

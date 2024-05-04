@@ -53,6 +53,12 @@ class Admin_Code {
 	 * @var string
 	 */
     private $options_get;
+    
+    /**
+	 * Options getter of the plugin
+	 * @var string
+	 */
+    private $checkbox_get;
 
     /**
 	 * Constructor
@@ -64,10 +70,11 @@ class Admin_Code {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name  = $plugin_name;
-		$this->version      = $version;
-        $this->domain       = 'expert-help';
-        $this->options_get  = $this->options_get;
+		$this->plugin_name   = $plugin_name;
+		$this->version       = $version;
+        $this->domain        = 'expert-help';
+        $this->options_get   = $this->options_get;
+        $this->checkbox_get  = $this->checkbox_get;
 
     }
 	
@@ -92,8 +99,37 @@ class Admin_Code {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+        // for js-code-editor init
+		wp_enqueue_script( $this->plugin_name . '-admin-script', plugin_dir_url( __FILE__ ) . 'js/expert-help-admin.js', array(), $this->version, 'all' );
 
-		wp_enqueue_script( $this->plugin_name . '-admin-script', plugin_dir_url( __FILE__ ) . 'css/expert-help-admin.js', array(), $this->version, 'all' );
+    }
+
+    /**
+     * Put scripts in the head.
+     * @since 1.0.0
+     * @param wp_unslash   Remove slashes from a string or array of strings.
+     */
+    public function admin_head_scripts() {
+
+        $output     = '';
+        $html_toget = '';
+        $default    = '';
+        $html_toget = ( empty( $this->options_get( 'extra_options', 'admin_style' ) ) )
+        ? $default : $this->options_get( 'extra_options', 'admin_style' );
+
+        $opt_styles = ( null !== $this->options_get( 'extra_options', 'radio_extra' ) )
+                    ? 0 : $this->options_get( 'extra_options', 'radio_extra' );
+        
+        if( $html_toget ) {
+            $output .= '<style type="text/css" id="expert-help-admin-head">';
+        if( $opt_styles == "1" ) : 
+            $output .= wp_unslash( $html_toget );
+        endif;
+            $output .= '</style> ';
+        } 
+        
+        print( $output );
+
     }
 
     /**
@@ -154,6 +190,17 @@ class Admin_Code {
                       ? '' : get_option( $opt )[ $fld ];
 
             return esc_attr( $options_get );
+    }
+
+    /**
+     * get_option('general_options')['workroom_uri'],
+     */
+    public function checkbox_get( $opt, $fld ){
+
+        $checkbox_get = ( empty( get_option( $opt )[ $fld ] ) ) 
+                      ? 0 : get_option( $opt )[ $fld ];
+
+            return esc_attr( $checkbox_get );
     }
 
     /**
@@ -254,8 +301,37 @@ class Admin_Code {
                 'show_link'   => false
             )
         );
-        
-        /* ///// third tab ///// */ 
+        add_settings_field(
+            'radio_extra', 					
+            __( 'Use Admin Style', $this->domain ),  					
+            [ $this, 'expert_help_radio' ],
+            'extra_options',
+            'extra_options',
+            array( 
+                'label_for'   => 'radio_extra', 
+                'name'        => 'radio_extra', 
+                'value'       => $this->checkbox_get( 'extra_options', 'radio_extra'),
+                'option_name' => 'extra_options',
+                'description' => 'use to remove nags etc.',
+                'checked'     => ( 0 != $this->checkbox_get( 'extra_options', 'radio_extra') )
+                                    ? 'checked' : ''
+            )
+        );
+        add_settings_field(
+            'admin_style',
+            __( 'Valid CSS to Admin', $this->domain ),
+            [ $this, 'expert_help_editor' ],
+            'extra_options',
+            'extra_options',
+            array( 
+                'label_for'   => 'admin_style',
+                'name'        => 'admin_style',
+                'value'       => $this->options_get( 'extra_options', 'admin_style'),
+                'option_name' => 'extra_options'
+            )
+        );
+
+        /* ///// second tab ///// */ 
 	    register_setting( 'extra_options',
 		    'extra_options'
 	    );
@@ -322,6 +398,31 @@ class Admin_Code {
                  
             );
         }
+    }
+
+    public function expert_help_editor( $args ) {
+        printf(
+            '<label for="%3$s">%3$s</label>
+            <textarea id="%1$s" class="widefat textarea expert-help-textarea" name="%1$s[%2$s]" cols="40" rows="5">%4$s</textarea>
+            </fieldset>',
+                $args['option_name'],
+                $args['name'],
+                $args['label_for'],
+                $args['value'],
+            );
+    }
+    public function expert_help_radio($args) {
+        printf(
+            '<input type="hidden" name="%2$s[%1$s]" value="0">
+            <input id="%1$s" type="checkbox" name="%2$s[%1$s]" value="1"  
+            class="regular-checkbox" %5$s />
+            <span>%4$s </span> v=%3$s',
+                $args['name'],
+                $args['option_name'],
+                $args['value'],
+                $args['description'],
+                $args['checked']
+            );
     }
 
     /* ////////// Admin specific methods ////////// */
