@@ -48,10 +48,12 @@ if ( ! current_user_can('manage_options')) {
             if( $active_tab == 'general_options' ) {
                 settings_fields( 'general_options' );
                 do_settings_sections( 'general_options' );
+				submit_button();
             }
             elseif( $active_tab == 'extra_options' ) {
 				settings_fields( 'extra_options' );
                 do_settings_sections( 'extra_options' );
+				submit_button();
             }
             else { 
 				/* There are no settings sections or options registered with expert_help
@@ -61,10 +63,7 @@ if ( ! current_user_can('manage_options')) {
 				dirname( __FILE__ ) ) 
 			);  
 			} ?>
-			<?php
-        		submit_button();
-
-        ?>
+		
         </form>
         </div><!-- end .wrap -->
 	<?php 
